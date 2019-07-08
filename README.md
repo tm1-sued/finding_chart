@@ -12,15 +12,16 @@ Allows specification of the field of view.
 
 **Examples for use**
 
-0) `finding_chart.py -h` (or `-help`, `--h`, `--help`): prints a small help screen
-1) `finding_chart.py` : 
-   reads the (standard) file `init.yml` and generate finding charts according to specification therein
-2) `finding_chart.py init_starlist.yml` : 
-   generates finding charts for the stars in the list specified in `init_starlist.yml` and outputs them in `./fc_my_starlist/`
-3) `finding_chart.py init_starlist_file.yml` : 
-   generates finding charts for the stars in the file `my_starlist.txt` and outputs them in `./fc_my_starlist_file/`
-4) `finding_chart.py init_my_starnames_and_coords.yml` : 
-   generates finding charts for the stars in the file `my_star_coords_txt` and outputs them in `./fc_my_star_coords_file/`
+0) `finding_chart.py -h` (or `-help`, `--h`, `--help`)
+   - prints a small help screen
+1) `finding_chart.py` 
+   - reads the (standard) file `init.yml` and generate finding charts according to specification therein
+2) `finding_chart.py init_starlist.yml` 
+   - generates finding charts for the stars in the list specified in `init_starlist.yml` and outputs them in `./fc_my_starlist/`
+3) `finding_chart.py init_starlist_file.yml` 
+   - generates finding charts for the stars in the file `my_starlist.txt` and outputs them in `./fc_my_starlist_file/`
+4) `finding_chart.py init_my_starnames_and_coords.yml`  
+   - generates finding charts for the stars in the file `my_star_coords_txt` and outputs them in `./fc_my_star_coords_file/`
    
 Use at your own peril and have fun observing
 
