@@ -1,29 +1,23 @@
-### standard initialisation file
-#
-#
+### example file for initalisation when making finding charts form a file
+### containing starnames, right ascencion and declination
+
 #output folder for the finding charts
-out_folder: ./fc_init
+out_folder: './fc_my_star_coords_file'
 
 #type of input
-# provide star list according to simbad nomeclature in this initil file
-fc_starname_input: 0 
-# provide star list according to simbad nomeclature by a file containg a list of names
-#fc_starname_input: 1 
-#provide user defined csv file with name and coordinates
-#fc_starname_input: 2 
-#
-#parameter ONLY for fc_starname_input: 0
+fc_starname_input: 2 # provide user defined csv file with name and coordinates
+
+#parameter only for fc_starname_input=0
 star_list_for_simbad: ['HIP1','Gaia DR2 5853498713160606720','Gliese 581']
     
-#parameter ONLY for fc_starname_input: 1
+#parameter for only for fc_starname_input=1
 # path and name where is the list of stars
 starlist_file: './my_starlist.txt' # single column file with the names of the stars retrieved from Simbad
 #name of output file for Simbad data (saved in out_folder)
 ofile_simbad_data: 'my_starlist_Simbad_data.csv'
 
-# file name ONLY for option fc_starname_input: 1 or 2
-# for local directory there is no / at the end
-folder_stars_file: '.'   
+# file name for option fc_starname_input: 1 or 2
+folder_stars_file: '.' # no / at the end
 
 # file name for fc_starname_input: 2 (specifies name, ra dec)
 starfile_for_finding_chart: './my_star_coords_txt'
@@ -32,26 +26,22 @@ starfile_for_finding_chart: './my_star_coords_txt'
 # more info in
 # https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html
 # play with this not all catalogs give good finding charts
-# options are :all, dss1, poss2ukstu_red, poss2ukstu_ir, poss2ukstu_blue, poss1_blue, poss1_red, quickv, phase2_gsc2,phase2_gsc1
-survey: 'dss1' 
+survey: 'dss1' # options all, dss1, poss2ukstu_red, poss2ukstu_ir, poss2ukstu_blue, poss1_blue, poss1_red, quickv, phase2_gsc2,phase2_gsc1
 
 #PI name and run ID
 PI_name: 'G. Galilei'
 Run_ID: 'Mike - 2019, July 6-8'
 
-# column names of file for fc_starname_input: 2
+# column names of file for fc_starname_input =  2
 #star_file_head_name: 'source_id'
 star_file_head_name: 'number_name'
 star_file_head_ra: 'ra'
 star_file_head_dec: 'dec'
 
 #format of ra and dec
-# decimal      (ra=23.1234 dec=-2.32456)
-#coord_format: 0 
-# sexadecimal type 1 (ra=23h01m01.23s dec=-02d32m04s56s) - SIMBAD format
-#coord_format: 1
-# sexadecimal type 2 (ra=23:01:01.23 dec=-02:32:04.56) 
-coord_format: 2 
+#coord_format: 0 # decimal      (ra=23.1234 dec=-2.32456)
+#coord_format: 1 # sexadecimal 1 (ra=23h01m01.23s dec=-02d32m04s56s) - SIMBAD format
+coord_format: 2 # sexadecimal 2 (ra=23:01:01.23 dec=-02:32:04.56)
 
 #field of view finding chart
 radius_field_of_view: 2.0 # this is the radius divided by 100 in deg 
