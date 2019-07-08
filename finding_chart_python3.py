@@ -20,65 +20,6 @@ from termcolor import colored
 import astropy.io.fits as fits
 import sys
 
-
-def i_par():
-    '''
-    initialisation routine
-    '''
-    ip = {}
-    
-    #output folder for the finding charts
-    ip['out_folder'] = './fc_my_starlist'
-    #ip['out_folder'] = './fc_my_starlist_file'
-    #ip['out_folder'] = './fc_my_star_coords_file'
-    
-    
-    #type of input
-    ip['fc_starname_input'] = 0 # provide star list according to simbad nomeclature in this initil file
-    #ip['fc_starname_input'] = 1 # provide star list according to simbad nomeclature by a file containg a list of names
-    #ip['fc_starname_input'] = 2 # provide user defined csv file with name and coordinates
-    
-    #parameter for fc_starname_input=0
-    ip['star_list_for_simbad'] = ['HIP1','Gaia DR2 5853498713160606720','Gliese 581']
-    
-    #parameter for fc_starname_input=1
-    # path and name where is the list of stars
-    ip['starlist_file'] = './my_starlist.txt' # single column file with the names of the stars retrieved from Simbad
-    #name of output file for Simbad data (saved in out_folder)
-    ip['ofile_simbad_data'] = 'my_starlist_Simbad_data.csv'
-    
-    # file name for option ip['fc_starname_input'] = 1 or 2
-    ip['folder_stars_file'] = '.' # no / at the end
-    
-    
-    
-    ip['starfile_for_finding_chart'] = './my_star_coords_txt'
-    
-    # survey in which the finding chart is looked up
-    # more info in
-    # https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html
-    # play with this not all catalogs give good finding charts
-    ip['survey'] = 'dss1' # options all, dss1, poss2ukstu_red, poss2ukstu_ir, poss2ukstu_blue, poss1_blue, poss1_red, quickv, phase2_gsc2,phase2_gsc1
-    
-    ip['PI_name'] = 'G. Galilei'
-    ip['Run_ID'] = 'Mike - 2019, July 6-8'
-     
-    #ip['star_file_head_name'] = 'source_id'
-    ip['star_file_head_name'] = 'number_name'
-    ip['star_file_head_ra'] = 'ra'
-    ip['star_file_head_dec'] = 'dec'
-    
-    #ip['coord_format'] = 0 # decimal      (ra=23.1234 dec=-2.32456)
-    #ip['coord_format'] = 1 # sexadecimal 1 (ra=23h01m01.23s dec=-02d32m04s56s) - SIMBAD format
-    ip['coord_format'] = 2 # sexadecimal 2 (ra=23:01:01.23 dec=-02:32:04.56)
-    
-    #ip['diam_field_of_view_amin'] = 2.0 # this is the diameter in arcmin !! units right?
-    ip['radius_field_of_view'] = 2.0 # this is the radius divided by 100 in deg 
-    ip['radius_marking_circle_asec'] = 8.0
-    
-    
-    return ip
-
 def read_file(path_file):
     '''
     reads a ascii table using the astropy frame work
