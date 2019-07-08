@@ -6,6 +6,7 @@
 #
 # use at your own peril
 #
+import yaml
 import aplpy #for astro plotting pip install aplpy
 import astropy.io.fits as pyfits
 import matplotlib.pyplot  as plt
@@ -61,9 +62,7 @@ def i_par():
     
     ip['PI_name'] = 'G. Galilei'
     ip['Run_ID'] = 'Mike - 2019, July 6-8'
-    
-    
-    
+     
     #ip['star_file_head_name'] = 'source_id'
     ip['star_file_head_name'] = 'number_name'
     ip['star_file_head_ra'] = 'ra'
@@ -109,10 +108,10 @@ def convert_ra_dec_to_decimal(ra_str, dec_str, form_choice):
     ra_deg=float('NaN')
     dec_deg=float('NaN')
     
-    if form_choice==0:
+    if form_choice=='0':
         return float(ra_str), float(dec_str)
     
-    elif form_choice==1:
+    elif form_choice=='1':
         if re.match('^(\d\d)h(\d\d)m(\d\d.\d+)s$',ra_str):
             ra_split = re.match('^(\d\d)h(\d\d)m(\d\d.\d+)s$',ra_str)
         else:
@@ -135,7 +134,7 @@ def convert_ra_dec_to_decimal(ra_str, dec_str, form_choice):
             print('\n dec string does not comply with the format 00d00m00.000s')
             print('input was', repr(dec_str), '\n')
     
-    elif form_choice == 2:
+    elif form_choice == '2':
         ra_split = re.match('^(\d\d):(\d\d):(\d\d.\d+)$',ra_str)
         if ra_split!=None:
             ra_vec = ra_split.groups()
@@ -263,10 +262,10 @@ def label_fc(fc, sname, ra, dec, p):
     '''
     if fc:
         #radius of field of view in arc sec
-        rad_fv_as = p['radius_field_of_view']/60./2. # /60 to convert the arc min /2 to get radius
+        rad_fv_as = float(p['radius_field_of_view'])/60./2. # /60 to convert the arc min /2 to get radius
         fc.tick_labels.set_font(size='small')
         plt.tight_layout()
-        fc.show_circles(ra,dec,radius=p['radius_marking_circle_asec']/3600.0,color='red')
+        fc.show_circles(ra,dec,radius=float(p['radius_marking_circle_asec'])/3600.0,color='red')
         
         title_str = 'PI: %s ,   Run ID: %s,  Band: %s' % (p['PI_name'],\
         												  p['Run_ID'],\
@@ -299,8 +298,8 @@ def make_fc_label_and_save(data, p):
         as a jpg
     '''
     
-    if p['fc_starname_input'] in [0, 1]:
-        coord_format = 1 # this is  how SIMBAD gives the coordinates
+    if p['fc_starname_input'] in ['0', '1']:
+        coord_format = '1' # this is  how SIMBAD gives the coordinates
     else:
         coord_format = p['coord_format']
     
@@ -316,7 +315,9 @@ def make_fc_label_and_save(data, p):
         ra = ra_dec[0]
         dec = ra_dec[1]
         
-        im=get_dss(ra, dec, sname, survey=p['survey'], radius=p['radius_field_of_view'])
+        im=get_dss(ra, dec, sname, \
+            survey=p['survey'], \
+            radius=float(p['radius_field_of_view']))
         #print(sname, ra_dec)
         
         fc  = label_fc(im, sname, ra, dec, p)
@@ -334,16 +335,18 @@ def main():
         
         make the finding chart
     '''
-    ip = i_par()
+    
+    with open("init.yml", 'r') as ymlfile: 
+        ip = yaml.load(ymlfile, Loader=yaml.BaseLoader)
     
     if not os.path.exists(ip['out_folder']):
         os.makedirs(ip['out_folder'])
     
     
     
-    if ip['fc_starname_input'] in [0, 1]:
+    if ip['fc_starname_input'] in ['0', '1']:
         
-        if ip['fc_starname_input']==0:
+        if ip['fc_starname_input']=='0':
             
             star_list = ip['star_list_for_simbad']
         else:
@@ -361,13 +364,13 @@ def main():
         
         make_fc_label_and_save(sim_data, ip)
         
-    elif ip['fc_starname_input']==2:
+    elif ip['fc_starname_input']=='2':
         print('reading from my file')
         #data = read_file(ip['folder_stars_file'], ip['starfile_for_finding_chart'])
         data = read_file(ip['starfile_for_finding_chart'])
         
-        print('keys of data file', data.keys())
-        print('here')
+        #print('keys of data file', data.keys())
+        
         make_fc_label_and_save(data, ip)
         
     else:
