@@ -1,5 +1,5 @@
 # Finding chart for astronomical observations
-This is a small python code to produce finding charts
+This is a small python code to produce finding charts from
 STSCI archive. User can specify which band (survey) for the finding chart.
 To run it, change the respective parameters in the init.yml file
 
