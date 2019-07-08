@@ -1,6 +1,6 @@
-# finding_chart
+# Finding chart for astronomical observations
 This is a small python code to produce finding charts
-STSCI archive. User can specify which band (survey) the 
+STSCI archive. User can specify which band (survey) for the finding chart.
 To run it, change the respective parameters in the init.yml file
 
 Code allows to parse data from SIMBAD given a list of only star names (from a list or a file) or
