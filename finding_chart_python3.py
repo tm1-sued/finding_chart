@@ -10,7 +10,6 @@ import aplpy #for astro plotting pip install aplpy
 import astropy.io.fits as pyfits
 import matplotlib.pyplot  as plt
 import numpy as np
-import angles      # pip install angles
 import re
 import os
 from astroquery.simbad import Simbad
@@ -18,6 +17,7 @@ from astropy.io import ascii
 from astropy.table import Table
 from termcolor import colored
 import astropy.io.fits as fits
+import sys
 
 
 def i_par():
@@ -27,15 +27,15 @@ def i_par():
     ip = {}
     
     #output folder for the finding charts
-    #ip['out_folder'] = './fc_my_starlist'
+    ip['out_folder'] = './fc_my_starlist'
     #ip['out_folder'] = './fc_my_starlist_file'
-    ip['out_folder'] = './fc_my_star_coords_file'
+    #ip['out_folder'] = './fc_my_star_coords_file'
     
     
     #type of input
-    #ip['fc_starname_input'] = 0 # provide star list according to simbad nomeclature in this initil file
+    ip['fc_starname_input'] = 0 # provide star list according to simbad nomeclature in this initil file
     #ip['fc_starname_input'] = 1 # provide star list according to simbad nomeclature by a file containg a list of names
-    ip['fc_starname_input'] = 2 # provide user defined csv file with name and coordinates
+    #ip['fc_starname_input'] = 2 # provide user defined csv file with name and coordinates
     
     #parameter for fc_starname_input=0
     ip['star_list_for_simbad'] = ['HIP1','Cl* Blanco 1 WGL 28','Gaia DR2 5853498713160606720','Gliese 581']
@@ -102,6 +102,8 @@ def convert_ra_dec_to_decimal(ra_str, dec_str, form_choice):
     
     to a decimals
     '''
+    from astropy import units as u
+    from astropy.coordinates import SkyCoord
     
     ra_vec = []
     dec_vec = []
@@ -151,15 +153,12 @@ def convert_ra_dec_to_decimal(ra_str, dec_str, form_choice):
     else:
         print('RA/DEC format not specified, proviced format specifier', form_choice)
     
-    if len(ra_vec)!=0:
-        ra_deg = angles.sexa2deci(1, int(ra_vec[0]), int(ra_vec[1]),float(ra_vec[2]), todeg=True)
-    
-    if len(dec_vec)!=0:
-        dec_deg = angles.sexa2deci(1, int(dec_vec[1]), int(dec_vec[2]), float(dec_vec[3]), todeg=False)
-        if dec_vec[0] == '+':
-            dec_deg = dec_deg
-        if dec_vec[0] == '-':
-            dec_deg = (-1.0)*dec_deg
+    if (len(ra_vec)!=0) and (len(dec_vec)!=0):
+        m_ra = ':'.join(ra_vec)
+        m_dec = dec_vec[0]+':'.join(dec_vec[1:])
+        coords = SkyCoord(m_ra+' ' +m_dec, unit=(u.hourangle, u.deg))
+        ra_deg = coords.ra.degree
+        dec_deg = coords.dec.degree
     
     return ra_deg, dec_deg
 
@@ -321,7 +320,6 @@ def make_fc_label_and_save(data, p):
         ra = ra_dec[0]
         dec = ra_dec[1]
         
-        #im=get_dss(ra, dec,survey=p['survey'], radius=p['diam_field_of_view_amin'])
         im=get_dss(ra, dec, sname, survey=p['survey'], radius=p['radius_field_of_view'])
         #print(sname, ra_dec)
         
