@@ -38,7 +38,7 @@ def i_par():
     #ip['fc_starname_input'] = 2 # provide user defined csv file with name and coordinates
     
     #parameter for fc_starname_input=0
-    ip['star_list_for_simbad'] = ['HIP1','Cl* Blanco 1 WGL 28','Gaia DR2 5853498713160606720','Gliese 581']
+    ip['star_list_for_simbad'] = ['HIP1','Gaia DR2 5853498713160606720','Gliese 581']
     
     #parameter for fc_starname_input=1
     # path and name where is the list of stars
@@ -80,7 +80,6 @@ def i_par():
     
     return ip
 
-#def read_file(path, file):
 def read_file(path_file):
     '''
     reads a ascii table using the astropy frame work
@@ -264,10 +263,7 @@ def label_fc(fc, sname, ra, dec, p):
     '''
     if fc:
         #radius of field of view in arc sec
-        #rad_fv_as = p['diam_field_of_view_amin']/60./2. # /60 to convert the arc min /2 to get radius
         rad_fv_as = p['radius_field_of_view']/60./2. # /60 to convert the arc min /2 to get radius
-        #print('\nradius %f\n'% rad_fv_as)
-        #print('\nradius.60 %f\n'% (rad_fv_as*60))
         fc.tick_labels.set_font(size='small')
         plt.tight_layout()
         fc.show_circles(ra,dec,radius=p['radius_marking_circle_asec']/3600.0,color='red')
