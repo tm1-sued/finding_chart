@@ -264,7 +264,7 @@ def make_fc_label_and_save(data, p):
         
         fc  = label_fc(im, sname, ra, dec, p)
         if fc:
-            im.save(p['out_folder']+'/'+sname.replace(' ', '_')+'.jpeg')
+            im.save(p['out_folder']+'/'+sname.replace(' ', '_')+'_'+p['survey']+'.jpeg')
 
 
 def main():
