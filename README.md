@@ -1,4 +1,4 @@
-# Finding chart for astronomical observations
+# Finding charts for astronomical observations
 This is a small python code to produce finding charts from
 STSCI archive. User can specify which band (survey) for the finding chart.
 To run it, change the respective parameters in the init.yml file
@@ -9,6 +9,8 @@ from a file containing the names, right ascension and declination of a list of s
 The finding charts are obtained from STSCI archive. User can specify which band (survey) for the finding chart. 
 
 Allows specification of the field of view.
+
+Written for Python 3 -  requires astropy, aplpy, yaml, astroquery, termcolor, numpy, matplotlib, re
 
 **Examples for use**
 
@@ -23,6 +25,6 @@ Allows specification of the field of view.
 4) `finding_chart.py init_my_starnames_and_coords.yml`  
    - generates finding charts for the stars in the file `my_star_coords_txt` and outputs them in `./fc_my_star_coords_file/`
    
-Use at your own peril and have fun observing
+Use at your own peril and have fun observing.
 
 written by T. Maedler
